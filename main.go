@@ -51,7 +51,7 @@ func readDomain() string {
 func createEntity(domain string) {
 	log.Println("Creating entitiy " + domain)
 
-	path := "./" + strings.ToLower(domain) + "/models/entities/"
+	path := "./target/" + strings.ToLower(domain) + "/models/entities/"
 
 	err := os.MkdirAll(path, os.ModePerm)
 	check(err)
