@@ -20,10 +20,11 @@ func main() {
 	bases.Domain = domain
 	bases.Package = readPackage()
 
-	createEntity(domain)
-	createDto(domain)
+	createEntity()
+	createDto()
+	createRepository()
 	//createMapper(domain)
-	createService(domain)
+	createService()
 	//createController(domain)
 }
 
@@ -36,23 +37,30 @@ func readPackage() string {
 	return os.Args[2]
 }
 
-func createService(domain string) {
-	fileName := domain + "Service"
+func createRepository() {
+	fileName := bases.Domain + "Repository"
+	log.Println("Creating repository " + fileName)
+	path := basePath(bases.Domain) + "/repositories/"
+	createJavaFile(path, fileName, bases.GetRepositoryBody())
+}
+
+func createService() {
+	fileName := bases.Domain + "Service"
 	log.Println("Creating service " + fileName)
-	path := basePath(domain) + "/services/"
-	createJavaFile(path, fileName, bases.GetServiceBody(domain))
+	path := basePath(bases.Domain) + "/services/"
+	createJavaFile(path, fileName, bases.GetServiceBody())
 }
 
-func createEntity(domain string) {
-	log.Println("Creating entitiy " + domain)
-	path := basePath(domain) + "/models/entities/"
-	createJavaFile(path, domain, bases.GetEntityBody(domain))
+func createEntity() {
+	log.Println("Creating entitiy " + bases.Domain)
+	path := basePath(bases.Domain) + "/models/entities/"
+	createJavaFile(path, bases.Domain, bases.GetEntityBody())
 }
 
-func createDto(domain string) {
-	fileName := domain + "Dto"
+func createDto() {
+	fileName := bases.Domain + "Dto"
 	log.Println("Creating dto " + fileName)
-	path := basePath(domain) + "/models/dtos/"
+	path := basePath(bases.Domain) + "/models/dtos/"
 	createJavaFile(path, fileName, bases.GetDtoBody(fileName))
 }
 

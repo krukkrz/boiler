@@ -2,11 +2,11 @@ package bases
 
 import "strings"
 
-func GetServiceBody(domain string) string {
+func GetServiceBody() string {
 	content := Content{
 		[]string{
 			packageDeclarationLine("services"),
-			importRepository().Import,
+			generatedRepository().Import,
 			service().Import,
 			allArgsConstructor().Import,
 			entityNotFoundException().Import,
@@ -15,8 +15,9 @@ func GetServiceBody(domain string) string {
 		[]string{
 			service().Content,
 			allArgsConstructor().Content,
-			startClass(domain + "Service"),
-			importRepository().Content,
+			startClass(Domain + "Service"),
+			newLine(),
+			generatedRepository().Content,
 			methodCreate(),
 			newLine(),
 			methodGetAll(list().Content),
@@ -43,14 +44,6 @@ func entityNotFoundException() Class {
 	return Class{
 		"import javax.persistence.EntityNotFoundException;\n",
 		"EntityNotFoundException",
-	}
-}
-
-func importRepository() Class {
-	domain := strings.ToLower(Domain)
-	return Class{
-		"import " + Package + "." + domain + ".repository." + Domain + "Repository;\n",
-		tab() + "private final " + Domain + "Repository repository;\n",
 	}
 }
 

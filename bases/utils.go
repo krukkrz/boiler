@@ -38,11 +38,15 @@ func packageLocation(location string) string {
 }
 
 func getClassSkeleton(name string, body string) string {
-	return startClass(name) + body + endClass()
+	return startClass(name) + newLine() + body + endClass()
 }
 
 func startClass(name string) string {
-	return "public class " + name + "{ \n\n"
+	return "public class " + name + "{ \n"
+}
+
+func startClassWithExtention(name string, extends string) string {
+	return "public class " + name + " extends " + extends + " { \n"
 }
 
 func endClass() string {

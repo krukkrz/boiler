@@ -1,6 +1,8 @@
 package bases
 
-func GetEntityBody(domain string) string {
+import "strings"
+
+func GetEntityBody() string {
 	classBody := "\t" + id().Content + "\t" + generatedValue().Content + "\tprivate Long id;\n\t//TODO implement parameters here"
 	content := Content{
 		[]string{
@@ -21,7 +23,7 @@ func GetEntityBody(domain string) string {
 			equalsAndHashCode().Content,
 			allArgsConstructor().Content,
 			noArgsConstructor().Content,
-			getClassSkeleton(domain, classBody),
+			getClassSkeleton(Domain, classBody),
 		},
 	}
 	return concatenateBody(content)
@@ -45,4 +47,12 @@ func GetDtoBody(name string) string {
 		},
 	}
 	return concatenateBody(content)
+}
+
+func generatedEntity() Class {
+	domain := strings.ToLower(Domain)
+	return Class{
+		"import " + Package + "." + domain + ".models.enity." + Domain + ";\n",
+		Domain,
+	}
 }

@@ -9,6 +9,13 @@ func service() Annotation {
 	}
 }
 
+func repository() Annotation {
+	return Annotation{
+		"import org.springframework.stereotype.Repository;\n",
+		annotation("repository"),
+	}
+}
+
 func generatedValue() Annotation {
 	return Annotation{
 		"import javax.persistence.GeneratedValue;\n",
