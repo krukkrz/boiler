@@ -1,5 +1,7 @@
 package bases
 
+import "strings"
+
 var Domain string
 
 var Package string
@@ -26,8 +28,13 @@ func concatenateStrings(strings []string) string {
 	return concatenated
 }
 
-func packageLine(location string) string {
-	return Package + "." + location + "; \n\n"
+func packageDeclarationLine(location string) string {
+	return "package " + packageLocation(location) + "; \n\n"
+}
+
+func packageLocation(location string) string {
+	domain := strings.ToLower(Domain)
+	return Package + "." + domain + "." + location
 }
 
 func getClassSkeleton(name string, body string) string {

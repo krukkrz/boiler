@@ -4,7 +4,7 @@ func GetEntityBody(domain string) string {
 	classBody := "\t" + id().Content + "\t" + generatedValue().Content + "\tprivate Long id;\n\t//TODO implement parameters here"
 	content := Content{
 		[]string{
-			"//TODO write your package here\n",
+			packageDeclarationLine("models.entities"),
 			id().Import,
 			generatedValue().Import,
 			entity().Import,
@@ -30,7 +30,7 @@ func GetEntityBody(domain string) string {
 func GetDtoBody(name string) string {
 	content := Content{
 		[]string{
-			"//TODO write your package here\n",
+			packageDeclarationLine("models.dtos"),
 			builder().Import,
 			data().Import,
 			noArgsConstructor().Import,

@@ -1,5 +1,10 @@
+# Boiler
+It is a boiler plate generator for Spring MVC classes.
+
 ## Setup
-Direct to your `src/java/` directory. Then fire up application by running a commang:
-```bash
-here will be some command
-```
+1. Clone this repository.
+1. Fire up application by running a command:
+    ```bash
+    ./boiler <your domain name> <your base package name>
+    ```
+1. Copy a content of a folder `target` and paste id in your `src/java/` directory

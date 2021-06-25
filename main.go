@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"pl.krukkrz/spring-mvc-generator/bases"
+	"pl.krukkrz/boiler/bases"
 )
 
 const fileExtention = ".java"
@@ -18,17 +18,13 @@ func main() {
 
 	domain := readDomain()
 	bases.Domain = domain
-	bases.Package = packageLine(readPackage())
+	bases.Package = readPackage()
 
 	createEntity(domain)
 	createDto(domain)
 	//createMapper(domain)
 	createService(domain)
 	//createController(domain)
-}
-
-func packageLine(packageName string) string {
-	return "package " + packageName + "." + strings.ToLower(bases.Domain)
 }
 
 func readDomain() string {
@@ -44,7 +40,7 @@ func createService(domain string) {
 	fileName := domain + "Service"
 	log.Println("Creating service " + fileName)
 	path := basePath(domain) + "/services/"
-	createJavaFile(path, domain, bases.GetServiceBody(domain))
+	createJavaFile(path, fileName, bases.GetServiceBody(domain))
 }
 
 func createEntity(domain string) {
