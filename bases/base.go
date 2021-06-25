@@ -1,7 +1,5 @@
 package bases
 
-import "strings"
-
 type Annotation struct {
 	Import  string
 	Content string
@@ -40,67 +38,23 @@ func GetEntityBody(domain string) string {
 }
 
 func GetDtoBody(name string) string {
-	return getClassSkeleton(name, "//TODO implement parameters here")
-}
-
-func generatedValue() Annotation {
-	return Annotation{
-		"import javax.persistence.GeneratedValue;\n",
-		annotation("generatedValue"),
+	content := Content{
+		[]string{
+			"//TODO write your package here\n",
+			builder().Import,
+			data().Import,
+			noArgsConstructor().Import,
+			allArgsConstructor().Import,
+		},
+		[]string{
+			builder().Content,
+			data().Content,
+			noArgsConstructor().Content,
+			allArgsConstructor().Content,
+			getClassSkeleton(name, "\t//TODO implement parameters here"),
+		},
 	}
-}
-
-func id() Annotation {
-	return Annotation{
-		"import javax.persistence.Id;\n",
-		annotation("id"),
-	}
-}
-
-func noArgsConstructor() Annotation {
-	return Annotation{
-		"import lombok.NoArgsConstructor;\n",
-		annotation("noArgsConstructor"),
-	}
-}
-
-func allArgsConstructor() Annotation {
-	return Annotation{
-		"import lombok.AllArgsConstructor;\n",
-		annotation("allArgsConstructor"),
-	}
-}
-
-func entity() Annotation {
-	return Annotation{
-		"import javax.persistence.Entity;\n",
-		annotation("entity"),
-	}
-}
-
-func builder() Annotation {
-	return Annotation{
-		"import lombok.Builder;\n",
-		annotation("builder"),
-	}
-}
-
-func data() Annotation {
-	return Annotation{
-		"import lombok.Data;\n",
-		annotation("data"),
-	}
-}
-
-func equalsAndHashCode() Annotation {
-	return Annotation{
-		"import lombok.EqualsAndHashCode;\n",
-		annotation("EqualsAndHashCode"),
-	}
-}
-
-func annotation(annotation string) string {
-	return "@" + strings.Title(annotation) + "\n"
+	return concatenateBody(content)
 }
 
 func getClassSkeleton(name string, body string) string {
