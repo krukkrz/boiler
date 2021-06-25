@@ -17,16 +17,34 @@ func main() {
 	os.RemoveAll("./target")
 
 	domain := readDomain()
+	bases.Domain = domain
+	bases.Package = packageLine(readPackage())
+
 	createEntity(domain)
 	createDto(domain)
 	//createMapper(domain)
-	//createService(domain)
+	createService(domain)
 	//createController(domain)
+}
+
+func packageLine(packageName string) string {
+	return "package " + packageName + "." + strings.ToLower(bases.Domain)
 }
 
 func readDomain() string {
 	domain := os.Args[1]
 	return strings.Title(domain)
+}
+
+func readPackage() string {
+	return os.Args[2]
+}
+
+func createService(domain string) {
+	fileName := domain + "Service"
+	log.Println("Creating service " + fileName)
+	path := basePath(domain) + "/services/"
+	createJavaFile(path, domain, bases.GetServiceBody(domain))
 }
 
 func createEntity(domain string) {
@@ -36,9 +54,9 @@ func createEntity(domain string) {
 }
 
 func createDto(domain string) {
-	log.Println("Creating dto " + domain)
-	path := basePath(domain) + "/models/dtos/"
 	fileName := domain + "Dto"
+	log.Println("Creating dto " + fileName)
+	path := basePath(domain) + "/models/dtos/"
 	createJavaFile(path, fileName, bases.GetDtoBody(fileName))
 }
 

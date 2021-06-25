@@ -1,15 +1,5 @@
 package bases
 
-type Annotation struct {
-	Import  string
-	Content string
-}
-
-type Content struct {
-	Imports []string
-	Content []string
-}
-
 func GetEntityBody(domain string) string {
 	classBody := "\t" + id().Content + "\t" + generatedValue().Content + "\tprivate Long id;\n\t//TODO implement parameters here"
 	content := Content{
@@ -55,22 +45,4 @@ func GetDtoBody(name string) string {
 		},
 	}
 	return concatenateBody(content)
-}
-
-func getClassSkeleton(name string, body string) string {
-	return "public class " + name + "{ \n\n" + body + "\n}"
-}
-
-func concatenateBody(content Content) string {
-	var imports string
-	for _, item := range content.Imports {
-		imports = imports + item
-	}
-
-	var body string
-	for _, item := range content.Content {
-		body = body + item
-	}
-
-	return imports + "\n" + body
 }

@@ -2,6 +2,13 @@ package bases
 
 import "strings"
 
+func service() Annotation {
+	return Annotation{
+		"import org.springframework.stereotype.Service;\n",
+		annotation("service"),
+	}
+}
+
 func generatedValue() Annotation {
 	return Annotation{
 		"import javax.persistence.GeneratedValue;\n",
