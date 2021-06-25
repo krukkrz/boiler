@@ -52,7 +52,15 @@ func GetDtoBody(name string) string {
 func generatedEntity() Class {
 	domain := strings.ToLower(Domain)
 	return Class{
-		"import " + Package + "." + domain + ".models.enity." + Domain + ";\n",
+		"import " + Package + "." + domain + ".models.entities." + Domain + ";\n",
 		Domain,
+	}
+}
+
+func generatedDto() Class {
+	domain := strings.ToLower(Domain)
+	return Class{
+		"import " + Package + "." + domain + ".models.dtos." + Domain + "Dto;\n",
+		Domain + "Dto",
 	}
 }

@@ -2,14 +2,20 @@ package bases
 
 import "strings"
 
+const dependency = "repository"
+
 func GetServiceBody() string {
 	content := Content{
 		[]string{
 			packageDeclarationLine("services"),
 			generatedRepository().Import,
+			generatedEntity().Import,
+			generatedDto().Import,
+			newLine(),
 			service().Import,
 			allArgsConstructor().Import,
 			entityNotFoundException().Import,
+			newLine(),
 			list().Import,
 		},
 		[]string{
@@ -49,7 +55,7 @@ func entityNotFoundException() Class {
 
 func methodDelete() string {
 	serviceSignature := "void delete(Long id)"
-	repositoryMethod := "deleteById(id)"
+	repositoryMethod := dependency + ".deleteById(id)"
 	return method(serviceSignature, repositoryMethod)
 }
 
@@ -57,13 +63,13 @@ func methodEdit() string {
 	domain := strings.ToLower(Domain)
 
 	serviceSignature := Domain + " edit(" + Domain + " " + domain + ")"
-	repositoryMethod := "save(" + domain + ")"
+	repositoryMethod := dependency + ".save(" + domain + ")"
 	return method(serviceSignature, repositoryMethod)
 }
 
 func methodGetById(exception string) string {
 	serviceSignature := Domain + " getById(Long id)"
-	repositoryMethod := "findById(id).orElseThrow(" + exception + "::new)"
+	repositoryMethod := dependency + ".findById(id).orElseThrow(" + exception + "::new)"
 	return method(serviceSignature, repositoryMethod)
 }
 
@@ -71,29 +77,13 @@ func methodCreate() string {
 	domain := strings.ToLower(Domain)
 
 	serviceSignature := Domain + " create(" + Domain + " " + domain + ")"
-	repositoryMethod := "save(" + domain + ")"
+	repositoryMethod := dependency + ".save(" + domain + ")"
 	return method(serviceSignature, repositoryMethod)
 }
 
 func methodGetAll(collection string) string {
 	returnType := collection + "<" + Domain + ">"
 	serviceSignature := returnType + " getAll()"
-	repositoryMethod := "findAll()"
+	repositoryMethod := dependency + ".findAll()"
 	return method(serviceSignature, repositoryMethod)
-}
-
-func method(serviceMethod string, repositoryMethod string) string {
-	method := []string{
-		newLine(),
-		tab(),
-		"public " + serviceMethod + " {",
-		newLine(),
-		tab(),
-		tab(),
-		"repository." + repositoryMethod + ";",
-		newLine(),
-		tab(),
-		"}",
-	}
-	return concatenateStrings(method)
 }

@@ -6,9 +6,10 @@ func GetRepositoryBody() string {
 	content := Content{
 		[]string{
 			packageDeclarationLine("repositories"),
+			generatedEntity().Import,
+			newLine(),
 			repository().Import,
 			crudRepository().Import,
-			generatedEntity().Import,
 		},
 		[]string{
 			repository().Content,

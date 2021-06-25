@@ -23,9 +23,9 @@ func main() {
 	createEntity()
 	createDto()
 	createRepository()
-	//createMapper(domain)
+	createMapper()
 	createService()
-	//createController(domain)
+	createController()
 }
 
 func readDomain() string {
@@ -35,6 +35,17 @@ func readDomain() string {
 
 func readPackage() string {
 	return os.Args[2]
+}
+
+func createMapper() {
+	fileName := bases.Domain + "Mapper"
+	log.Println("Creating mapper " + fileName)
+	path := basePath(bases.Domain) + "/models/mapping/"
+	createJavaFile(path, fileName, bases.GetMapperBody())
+}
+
+func createController() {
+
 }
 
 func createRepository() {

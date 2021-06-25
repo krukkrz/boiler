@@ -2,6 +2,13 @@ package bases
 
 import "strings"
 
+func component() Annotation {
+	return Annotation{
+		"import org.springframework.stereotype.Component;\n",
+		annotation("component"),
+	}
+}
+
 func service() Annotation {
 	return Annotation{
 		"import org.springframework.stereotype.Service;\n",

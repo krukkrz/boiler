@@ -6,6 +6,22 @@ var Domain string
 
 var Package string
 
+func method(serviceMethod string, dependencyMethod string) string {
+	method := []string{
+		newLine(),
+		tab(),
+		"public " + serviceMethod + " {",
+		newLine(),
+		tab(),
+		tab(),
+		dependencyMethod + ";",
+		newLine(),
+		tab(),
+		"}",
+	}
+	return concatenateStrings(method)
+}
+
 func concatenateBody(content Content) string {
 	var imports string
 	for _, item := range content.Imports {
