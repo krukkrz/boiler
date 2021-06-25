@@ -8,39 +8,20 @@ import (
 	"pl.krukkrz/spring-mvc-generator/bases"
 )
 
+const fileExtention = ".java"
+
 func main() {
-
-	//jako argumenty:
-	//- nazwa encji
-
-	//tworzę folder z nazwą encji
-	//w nim:
-	// repositories
-	// services
-	// controllers
-	// models
-	//	entities
-	// 	dto
-	// mappers
-
 	log.Println("Staring the app")
 
+	log.Println("Clean /target directory..")
+	os.RemoveAll("./target")
+
 	domain := readDomain()
-
 	createEntity(domain)
-
-	// -------------------------------
-	// os.Mkdir("./tmp", 0755)
-
-	// f, err := os.Create("./tmp/dat2")
-	// check(err)
-	// defer f.Close()
-
-	// n3, err := f.WriteString("writes\n")
-	// check(err)
-	// fmt.Printf("wrote %d bytes\n", n3)
-
-	// f.Sync()
+	createDto(domain)
+	//createMapper(domain)
+	//createService(domain)
+	//createController(domain)
 }
 
 func readDomain() string {
@@ -50,19 +31,32 @@ func readDomain() string {
 
 func createEntity(domain string) {
 	log.Println("Creating entitiy " + domain)
+	path := basePath(domain) + "/models/entities/"
+	createJavaFile(path, domain, bases.GetEntityBody(domain))
+}
 
-	path := "./target/" + strings.ToLower(domain) + "/models/entities/"
+func createDto(domain string) {
+	log.Println("Creating dto " + domain)
+	path := basePath(domain) + "/models/dtos/"
+	fileName := domain + "Dto"
+	createJavaFile(path, fileName, bases.GetDtoBody(fileName))
+}
 
+func createJavaFile(path string, fileName string, content string) {
 	err := os.MkdirAll(path, os.ModePerm)
 	check(err)
-	f, err := os.Create(path + domain + ".class")
+	f, err := os.Create(path + fileName + fileExtention)
 	check(err)
 	defer f.Close()
 
-	log.Println("writing a content of s class " + domain + ".java")
-	_, err = f.WriteString(bases.GetEntityBody(domain))
+	log.Println("writing a content of class " + fileName + fileExtention)
+	_, err = f.WriteString(content)
 	check(err)
 	f.Sync()
+}
+
+func basePath(domain string) string {
+	return "./target/" + strings.ToLower(domain)
 }
 
 func check(e error) {
