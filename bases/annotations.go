@@ -9,6 +9,20 @@ func component() Annotation {
 	}
 }
 
+func requestMapping() Annotation {
+	return Annotation{
+		"import org.springframework.web.bind.annotation.RequestMapping;\n",
+		annotationWithParams("requestMapping", "\"/"+strings.ToLower(Domain)+"s\""),
+	}
+}
+
+func restController() Annotation {
+	return Annotation{
+		"import org.springframework.web.bind.annotation.RestController;\n",
+		annotation("restController"),
+	}
+}
+
 func service() Annotation {
 	return Annotation{
 		"import org.springframework.stereotype.Service;\n",
@@ -81,4 +95,8 @@ func equalsAndHashCode() Annotation {
 
 func annotation(annotation string) string {
 	return "@" + strings.Title(annotation) + "\n"
+}
+
+func annotationWithParams(annotation string, params string) string {
+	return "@" + strings.Title(annotation) + "(" + params + ")\n"
 }

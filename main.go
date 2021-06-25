@@ -45,7 +45,10 @@ func createMapper() {
 }
 
 func createController() {
-
+	fileName := bases.Domain + "Controller"
+	log.Println("Creating controller " + fileName)
+	path := basePath(bases.Domain) + "/controllers/"
+	createJavaFile(path, fileName, bases.GetControllerBody())
 }
 
 func createRepository() {
