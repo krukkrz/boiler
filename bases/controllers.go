@@ -9,6 +9,7 @@ func GetControllerBody() string {
 			generatedService().Import,
 			generatedDto().Import,
 			generatedEntity().Import,
+			importMapper(),
 			staticToDto().Import,
 			staticToModel().Import,
 
@@ -76,7 +77,7 @@ func GetControllerBody() string {
 			responseStatus("OK").Content,
 			newLine(),
 			deleteMethod(),
-			
+
 			endClass(),
 		},
 	}
@@ -91,7 +92,7 @@ func deleteMethod() string {
 
 func editMethod() string {
 	domain := strings.ToLower(Domain)
-	signature := responseEntity().Content + "<" + generatedEntity().Content + "> edit(" + requestBody().Content + " " + generatedDto().Content + " " + domain + "Dto)"
+	signature := responseEntity().Content + "<" + generatedDto().Content + "> edit(" + requestBody().Content + " " + generatedDto().Content + " " + domain + "Dto)"
 	toModel := generatedEntity().Content + " " + domain + " = " + staticToModel().Content + "(" + domain + "Dto)"
 	savedIteration := generatedEntity().Content + " saved" + Domain + " = service.edit(" + domain + ")"
 	returnMethod := "return " + responseEntity().Content + ".ok(" + staticToDto().Content + "(saved" + Domain + "))"
@@ -99,9 +100,9 @@ func editMethod() string {
 }
 
 func getByIdMethod() string {
-	signature := responseEntity().Content + "<" + generatedEntity().Content + "> getById(" + pathVariable("\"id\"").Content + " Long id)"
+	signature := responseEntity().Content + "<" + generatedDto().Content + "> getById(" + pathVariable("\"id\"").Content + " Long id)"
 	serviceCall1 := "return " + responseEntity().Content + ".ok("
-	serviceCall2 := newLine() + tab() + tab() + tab() + "service.getById(id)"
+	serviceCall2 := newLine() + tab() + tab() + tab() + "toDto(service.getById(id))"
 	serviceCall3 := newLine() + tab() + tab() + ")"
 	serviceCall := serviceCall1 + serviceCall2 + serviceCall3
 	return method(signature, serviceCall)
@@ -120,7 +121,7 @@ func getAllMethod() string {
 
 func createMethod() string {
 	domain := strings.ToLower(Domain)
-	signature := responseEntity().Content + "<" + generatedEntity().Content + "> create(" + requestBody().Content + " " + generatedDto().Content + " " + domain + "Dto)"
+	signature := responseEntity().Content + "<" + generatedDto().Content + "> create(" + requestBody().Content + " " + generatedDto().Content + " " + domain + "Dto)"
 	toModel := generatedEntity().Content + " " + domain + " = " + staticToModel().Content + "(" + domain + "Dto)"
 	savedIteration := generatedEntity().Content + " saved" + Domain + " = service.create(" + domain + ")"
 	returnMethod := "return " + responseEntity().Content + ".ok(" + staticToDto().Content + "(saved" + Domain + "))"

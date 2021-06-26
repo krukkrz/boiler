@@ -23,16 +23,21 @@ func GetMapperBody() string {
 	return concatenateBody(content)
 }
 
+func importMapper() string {
+	domain := strings.ToLower(Domain)
+	return "import " + Package + "." + domain + ".models.mapping." + Domain + "Mapper;\n"
+}
+
 func toModelMethod() string {
 	domain := strings.ToLower(Domain)
 	signature := "static " + Domain + " toModel(" + Domain + "Dto " + domain + ")"
-	return method(signature, "//TODO implement me")
+	return method(signature, "//TODO implement me\n\t\treturn null")
 }
 
 func toDtoMethod() string {
 	domain := strings.ToLower(Domain)
 	signature := "static " + Domain + "Dto" + " toDto(" + Domain + " " + domain + ")"
-	return method(signature, "//TODO implement me")
+	return method(signature, "//TODO implement me\n\t\treturn null")
 }
 
 func staticToModel() Class {
@@ -47,6 +52,6 @@ func staticToDto() Class {
 	domain := strings.ToLower(Domain)
 	return Class{
 		"import static " + Package + "." + domain + ".models.mapping." + Domain + "Mapper.toDto;\n",
-		"toModel",
+		"toDto",
 	}
 }

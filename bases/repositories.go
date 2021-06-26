@@ -13,7 +13,7 @@ func GetRepositoryBody() string {
 		},
 		[]string{
 			repository().Content,
-			startClassWithExtention(Domain+"Repository", crudRepository().Content+"<"+Domain+", Long"+">"),
+			startInterfaceWithExtention(Domain+"Repository", crudRepository().Content+"<"+Domain+", Long"+">"),
 			endClass(),
 		},
 	}

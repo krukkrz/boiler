@@ -69,6 +69,10 @@ func startClassWithExtention(name string, extends string) string {
 	return "public class " + name + " extends " + extends + " { \n"
 }
 
+func startInterfaceWithExtention(name string, extends string) string {
+	return "public interface " + name + " extends " + extends + " { \n"
+}
+
 func endClass() string {
 	return closeBlock()
 }

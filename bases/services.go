@@ -10,7 +10,6 @@ func GetServiceBody() string {
 			packageDeclarationLine("services"),
 			generatedRepository().Import,
 			generatedEntity().Import,
-			generatedDto().Import,
 			newLine(),
 			service().Import,
 			allArgsConstructor().Import,
@@ -89,7 +88,7 @@ func methodCreate() string {
 func methodGetAll(collection string) string {
 	returnType := collection + "<" + Domain + ">"
 	serviceSignature := returnType + " getAll()"
-	repositoryMethod := "return " + dependency + ".findAll()"
+	repositoryMethod := "return (" + list().Content + "<" + Domain + ">" + ") " + dependency + ".findAll()"
 	return method(serviceSignature, repositoryMethod)
 }
 
