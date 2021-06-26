@@ -14,7 +14,9 @@ func GetMapperBody() string {
 		[]string{
 			component().Content,
 			startClass(Domain + "Mapper"),
+			newLine(),
 			toModelMethod(),
+			newLine(),
 			newLine(),
 			toDtoMethod(),
 			endClass(),
