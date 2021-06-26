@@ -31,13 +31,13 @@ func importMapper() string {
 func toModelMethod() string {
 	domain := strings.ToLower(Domain)
 	signature := "static " + Domain + " toModel(" + Domain + "Dto " + domain + ")"
-	return method(signature, "//TODO implement me\n\t\treturn null")
+	return method(signature, "return "+Domain+".builder().build()")
 }
 
 func toDtoMethod() string {
 	domain := strings.ToLower(Domain)
 	signature := "static " + Domain + "Dto" + " toDto(" + Domain + " " + domain + ")"
-	return method(signature, "//TODO implement me\n\t\treturn null")
+	return method(signature, "return "+Domain+"Dto.builder().build()")
 }
 
 func staticToModel() Class {

@@ -8,6 +8,7 @@ func GetServiceBody() string {
 	content := Content{
 		[]string{
 			packageDeclarationLine("services"),
+			transactional().Import,
 			generatedRepository().Import,
 			generatedEntity().Import,
 			newLine(),
@@ -21,22 +22,38 @@ func GetServiceBody() string {
 			service().Content,
 			allArgsConstructor().Content,
 			startClass(Domain + "Service"),
+
 			newLine(),
 			generatedRepository().Content,
+
+			newLine(),
+			tab(),
+			transactional().Content,
 			newLine(),
 			methodCreate(),
 			newLine(),
+
 			newLine(),
 			methodGetAll(list().Content),
 			newLine(),
+
 			newLine(),
 			methodGetById(entityNotFoundException().Content),
 			newLine(),
+
+			newLine(),
+			tab(),
+			transactional().Content,
 			newLine(),
 			methodEdit(),
 			newLine(),
+
+			newLine(),
+			tab(),
+			transactional().Content,
 			newLine(),
 			methodDelete(),
+
 			endClass(),
 		},
 	}
