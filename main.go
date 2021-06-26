@@ -26,6 +26,9 @@ func main() {
 	createMapper()
 	createService()
 	createController()
+	createExceptionController()
+
+	log.Println("Your classes are ready to be copied from /target folder")
 }
 
 func readDomain() string {
@@ -37,48 +40,50 @@ func readPackage() string {
 	return os.Args[2]
 }
 
+func createExceptionController() {
+	fileName := "ExceptionController"
+	path := basePath(bases.Domain) + "/controllers/"
+	createJavaFile(path, fileName, bases.GetExceptionControllerBody())
+}
+
 func createMapper() {
 	fileName := bases.Domain + "Mapper"
-	log.Println("Creating mapper " + fileName)
 	path := basePath(bases.Domain) + "/models/mapping/"
 	createJavaFile(path, fileName, bases.GetMapperBody())
 }
 
 func createController() {
 	fileName := bases.Domain + "Controller"
-	log.Println("Creating controller " + fileName)
 	path := basePath(bases.Domain) + "/controllers/"
 	createJavaFile(path, fileName, bases.GetControllerBody())
 }
 
 func createRepository() {
 	fileName := bases.Domain + "Repository"
-	log.Println("Creating repository " + fileName)
 	path := basePath(bases.Domain) + "/repositories/"
 	createJavaFile(path, fileName, bases.GetRepositoryBody())
 }
 
 func createService() {
 	fileName := bases.Domain + "Service"
-	log.Println("Creating service " + fileName)
 	path := basePath(bases.Domain) + "/services/"
 	createJavaFile(path, fileName, bases.GetServiceBody())
 }
 
 func createEntity() {
-	log.Println("Creating entitiy " + bases.Domain)
 	path := basePath(bases.Domain) + "/models/entities/"
 	createJavaFile(path, bases.Domain, bases.GetEntityBody())
 }
 
 func createDto() {
 	fileName := bases.Domain + "Dto"
-	log.Println("Creating dto " + fileName)
 	path := basePath(bases.Domain) + "/models/dtos/"
 	createJavaFile(path, fileName, bases.GetDtoBody(fileName))
 }
 
 func createJavaFile(path string, fileName string, content string) {
+	log.Println("Creating file " + fileName + ".java")
+
 	err := os.MkdirAll(path, os.ModePerm)
 	check(err)
 	f, err := os.Create(path + fileName + fileExtention)

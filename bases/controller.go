@@ -127,17 +127,3 @@ func createMethod() string {
 	returnMethod := "return " + responseEntity().Content + ".ok(" + staticToDto().Content + "(saved" + Domain + "))"
 	return method(signature, toModel, savedIteration, returnMethod)
 }
-
-func responseEntity() Class {
-	return Class{
-		"import org.springframework.http.ResponseEntity;\n",
-		"ResponseEntity",
-	}
-}
-
-func collectors() Class {
-	return Class{
-		"import java.util.stream.Collectors;\n",
-		"Collectors",
-	}
-}

@@ -6,6 +6,20 @@ import (
 
 const webBindAnnotation = "import org.springframework.web.bind.annotation."
 
+func exceptionHandler(params string) Annotation {
+	return Annotation{
+		springWebAnnotationImport("ExceptionHandler"),
+		annotationWithParams("ExceptionHandler", params),
+	}
+}
+
+func controllerAdvice() Annotation {
+	return Annotation{
+		springWebAnnotationImport("controllerAdvice"),
+		annotation("controllerAdvice"),
+	}
+}
+
 func responseStatus(params string) Annotation {
 	return Annotation{
 		springWebAnnotationImport("responseStatus"),

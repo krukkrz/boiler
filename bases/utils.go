@@ -62,11 +62,7 @@ func getClassSkeleton(name string, body string) string {
 }
 
 func startClass(name string) string {
-	return "public class " + name + "{ \n"
-}
-
-func startClassWithExtention(name string, extends string) string {
-	return "public class " + name + " extends " + extends + " { \n"
+	return "public class " + name + " { \n"
 }
 
 func startInterfaceWithExtention(name string, extends string) string {

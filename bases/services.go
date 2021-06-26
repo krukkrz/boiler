@@ -43,20 +43,6 @@ func GetServiceBody() string {
 	return concatenateBody(content)
 }
 
-func list() Class {
-	return Class{
-		"import java.util.List;\n",
-		"List",
-	}
-}
-
-func entityNotFoundException() Class {
-	return Class{
-		"import javax.persistence.EntityNotFoundException;\n",
-		"EntityNotFoundException",
-	}
-}
-
 func methodDelete() string {
 	serviceSignature := "void delete(Long id)"
 	repositoryMethod := dependency + ".deleteById(id)"

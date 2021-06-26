@@ -20,13 +20,6 @@ func GetRepositoryBody() string {
 	return concatenateBody(content)
 }
 
-func crudRepository() Class {
-	return Class{
-		"import org.springframework.data.repository.CrudRepository;\n",
-		"CrudRepository",
-	}
-}
-
 func generatedRepository() Class {
 	domain := strings.ToLower(Domain)
 	return Class{
