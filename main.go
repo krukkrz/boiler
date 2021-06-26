@@ -85,7 +85,7 @@ func createJavaFile(path string, fileName string, content string) {
 	check(err)
 	defer f.Close()
 
-	log.Println("writing a content of class " + fileName + fileExtention)
+	log.Println("Writing a content of a class " + fileName + fileExtention)
 	_, err = f.WriteString(content)
 	check(err)
 	f.Sync()

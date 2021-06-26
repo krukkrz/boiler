@@ -30,7 +30,7 @@ func crudRepository() Class {
 func generatedRepository() Class {
 	domain := strings.ToLower(Domain)
 	return Class{
-		"import " + Package + "." + domain + ".repository." + Domain + "Repository;\n",
+		"import " + Package + "." + domain + ".repositories." + Domain + "Repository;\n",
 		tab() + "private final " + Domain + "Repository repository;\n",
 	}
 }

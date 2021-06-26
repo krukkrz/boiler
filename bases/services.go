@@ -24,13 +24,18 @@ func GetServiceBody() string {
 			startClass(Domain + "Service"),
 			newLine(),
 			generatedRepository().Content,
+			newLine(),
 			methodCreate(),
+			newLine(),
 			newLine(),
 			methodGetAll(list().Content),
 			newLine(),
+			newLine(),
 			methodGetById(entityNotFoundException().Content),
 			newLine(),
+			newLine(),
 			methodEdit(),
+			newLine(),
 			newLine(),
 			methodDelete(),
 			endClass(),
@@ -63,13 +68,13 @@ func methodEdit() string {
 	domain := strings.ToLower(Domain)
 
 	serviceSignature := Domain + " edit(" + Domain + " " + domain + ")"
-	repositoryMethod := dependency + ".save(" + domain + ")"
+	repositoryMethod := "return " + dependency + ".save(" + domain + ")"
 	return method(serviceSignature, repositoryMethod)
 }
 
 func methodGetById(exception string) string {
 	serviceSignature := Domain + " getById(Long id)"
-	repositoryMethod := dependency + ".findById(id).orElseThrow(" + exception + "::new)"
+	repositoryMethod := "return " + dependency + ".findById(id).orElseThrow(" + exception + "::new)"
 	return method(serviceSignature, repositoryMethod)
 }
 
@@ -77,13 +82,21 @@ func methodCreate() string {
 	domain := strings.ToLower(Domain)
 
 	serviceSignature := Domain + " create(" + Domain + " " + domain + ")"
-	repositoryMethod := dependency + ".save(" + domain + ")"
+	repositoryMethod := "return " + dependency + ".save(" + domain + ")"
 	return method(serviceSignature, repositoryMethod)
 }
 
 func methodGetAll(collection string) string {
 	returnType := collection + "<" + Domain + ">"
 	serviceSignature := returnType + " getAll()"
-	repositoryMethod := dependency + ".findAll()"
+	repositoryMethod := "return " + dependency + ".findAll()"
 	return method(serviceSignature, repositoryMethod)
+}
+
+func generatedService() Class {
+	domain := strings.ToLower(Domain)
+	return Class{
+		"import " + Package + "." + domain + ".services." + Domain + "Service;\n",
+		tab() + "private final " + Domain + "Service service;\n",
+	}
 }

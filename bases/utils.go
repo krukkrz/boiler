@@ -6,20 +6,24 @@ var Domain string
 
 var Package string
 
-func method(serviceMethod string, dependencyMethod string) string {
+func method(serviceMethod string, dependencyMethod ...string) string {
 	method := []string{
-		newLine(),
 		tab(),
 		"public " + serviceMethod + " {",
 		newLine(),
-		tab(),
-		tab(),
-		dependencyMethod + ";",
-		newLine(),
+		dependencyMethods(dependencyMethod...),
 		tab(),
 		"}",
 	}
 	return concatenateStrings(method)
+}
+
+func dependencyMethods(dependencyMethod ...string) string {
+	var methods string
+	for _, method := range dependencyMethod {
+		methods = methods + tab() + tab() + method + ";" + newLine()
+	}
+	return methods
 }
 
 func concatenateBody(content Content) string {

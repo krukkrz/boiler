@@ -34,3 +34,19 @@ func toDtoMethod() string {
 	signature := "static " + Domain + "Dto" + " toDto(" + Domain + " " + domain + ")"
 	return method(signature, "//TODO implement me")
 }
+
+func staticToModel() Class {
+	domain := strings.ToLower(Domain)
+	return Class{
+		"import static " + Package + "." + domain + ".models.mapping." + Domain + "Mapper.toModel;\n",
+		"toModel",
+	}
+}
+
+func staticToDto() Class {
+	domain := strings.ToLower(Domain)
+	return Class{
+		"import static " + Package + "." + domain + ".models.mapping." + Domain + "Mapper.toDto;\n",
+		"toModel",
+	}
+}
