@@ -4,6 +4,13 @@ import "strings"
 
 const webBindAnnotation = "import org.springframework.web.bind.annotation."
 
+func pathVariable(params string) Annotation {
+	return Annotation{
+		springWebAnnotationImport("pathVariable"),
+		annotationWithParams("pathVariable", params),
+	}
+}
+
 func requestBody() Annotation {
 	return Annotation{
 		springWebAnnotationImport("requestBody"),

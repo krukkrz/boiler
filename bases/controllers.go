@@ -20,6 +20,9 @@ func GetControllerBody() string {
 			getMapping("").Import,
 			requestBody().Import,
 			responseEntity().Import,
+			pathVariable("").Import,
+
+			newLine(),
 			list().Import,
 			collectors().Import,
 		},
@@ -45,11 +48,28 @@ func GetControllerBody() string {
 			getMapping("").Content,
 			newLine(),
 			getAllMethod(),
+			newLine(),
+
+			newLine(),
+			tab(),
+			getMapping("\"/{id}\"").Content,
+			newLine(),
+			getByIdMethod(),
+			newLine(),
 
 			endClass(),
 		},
 	}
 	return concatenateBody(content)
+}
+
+func getByIdMethod() string {
+	signature := responseEntity().Content + "<" + generatedEntity().Content + "> getById(" + pathVariable("\"id\"").Content + " Long id)"
+	serviceCall1 := "return " + responseEntity().Content + ".ok("
+	serviceCall2 := newLine() + tab() + tab() + tab() + "service.getById(id)"
+	serviceCall3 := newLine() + tab() + tab() + ")"
+	serviceCall := serviceCall1 + serviceCall2 + serviceCall3
+	return method(signature, serviceCall)
 }
 
 func getAllMethod() string {
