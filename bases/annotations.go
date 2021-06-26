@@ -1,8 +1,17 @@
 package bases
 
-import "strings"
+import (
+	"strings"
+)
 
 const webBindAnnotation = "import org.springframework.web.bind.annotation."
+
+func responseStatus(params string) Annotation {
+	return Annotation{
+		springWebAnnotationImport("responseStatus"),
+		annotationWithParams("responseStatus", params),
+	}
+}
 
 func pathVariable(params string) Annotation {
 	return Annotation{

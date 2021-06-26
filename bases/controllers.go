@@ -18,9 +18,13 @@ func GetControllerBody() string {
 			allArgsConstructor().Import,
 			postMapping("").Import,
 			getMapping("").Import,
+			putMapping("").Import,
+			deleteMapping("").Import,
 			requestBody().Import,
 			responseEntity().Import,
+			responseStatus("").Import,
 			pathVariable("").Import,
+			"import static org.springframework.http.HttpStatus.OK;\n",
 
 			newLine(),
 			list().Import,
@@ -57,10 +61,41 @@ func GetControllerBody() string {
 			getByIdMethod(),
 			newLine(),
 
+			newLine(),
+			tab(),
+			putMapping("").Content,
+			newLine(),
+			editMethod(),
+			newLine(),
+
+			newLine(),
+			tab(),
+			deleteMapping("\"/{id}\"").Content,
+			newLine(),
+			tab(),
+			responseStatus("OK").Content,
+			newLine(),
+			deleteMethod(),
+			
 			endClass(),
 		},
 	}
 	return concatenateBody(content)
+}
+
+func deleteMethod() string {
+	signature := "void delete(" + pathVariable("\"id\"").Content + "Long id)"
+	serviceCall := "service.delete(id)"
+	return method(signature, serviceCall)
+}
+
+func editMethod() string {
+	domain := strings.ToLower(Domain)
+	signature := responseEntity().Content + "<" + generatedEntity().Content + "> edit(" + requestBody().Content + " " + generatedDto().Content + " " + domain + "Dto)"
+	toModel := generatedEntity().Content + " " + domain + " = " + staticToModel().Content + "(" + domain + "Dto)"
+	savedIteration := generatedEntity().Content + " saved" + Domain + " = service.edit(" + domain + ")"
+	returnMethod := "return " + responseEntity().Content + ".ok(" + staticToDto().Content + "(saved" + Domain + "))"
+	return method(signature, toModel, savedIteration, returnMethod)
 }
 
 func getByIdMethod() string {
